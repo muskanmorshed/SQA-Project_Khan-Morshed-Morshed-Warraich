@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run Main (with args)",
+      "request": "launch",
+      "mainClass": "Main",
+      "args": [
+        "accounts.txt",
+        "rentals.txt",
+        "transactions.txt"
+      ]
+    }
+  ]
+}
+
