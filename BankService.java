@@ -1,21 +1,40 @@
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * BankService.java
+ - Implements all business rules and transaction logic for the banking system.
+ - This class validates session permissions, enforces transaction limits,
+   updates account balances, records pending deposits, and logs all
+   transactions using the TransactionLogger.
+ - All user-facing interactions are handled by the front-end; this class
+   strictly performs validation and state changes.
+ */
 
 public class BankService {
-    private final AccountsRepository repo;
-    private final TransactionLogger logger;
+    private final AccountsRepository repo; // repository used to store and retrieve account data
+    private final TransactionLogger logger; // logger responsible for recording and writing transaction records
 
-    // deposits are recorded but not usable until logout
+    // deposits are recorded during the session, but not applied to account balance until logout
+    // Key: 5-digit account ID, Value: total pending deposit amount.
     private final Map<String, Double> pendingDeposits = new HashMap<>();
 
+    /**
+     * Constructs the banking service layer
+     * @param repository Repository providing access to account storage
+     * @param logger     Transaction logger for recording transactions
+     */
     public BankService(AccountsRepository repository, TransactionLogger logger) {
         this.repo = repository;
         this.logger = logger;
     }
 
-    // Validate for STANDARD mode: holder name must match account owner and status active
+    /**
+     * Validate for STANDARD mode: holder name must match account owner and status active
+     * ensures that the account exists, is active, and belongs to the logged in user
+     * @param holderName Account holder name from the session
+     * @param accountId  Target account identifier
+    */
     public void validateStandardAccount(String holderName, String accountId) {
         Account acc = repo.get(FixedFmt.acct5(accountId));
         if (acc.isDisabled()) throw new IllegalArgumentException("Account is disabled.");
@@ -24,12 +43,25 @@ public class BankService {
         }
     }
 
-    // ADMIN mode can target any existing non-disabled account unless the transaction is delete/disable
+     /**
+     * ADMIN mode can target any existing non-disabled account 
+       unless the transaction is delete/disable
+     * Validates that an account exists and is active
+     * Used primarily for admin operations
+     * @param accountId Target account identifier
+     */
     public void validateExistingActive(String accountId) {
         Account acc = repo.get(FixedFmt.acct5(accountId));
         if (acc.isDisabled()) throw new IllegalArgumentException("Account is disabled.");
     }
 
+    /**
+     * Processes a withdrawal transaction
+     * @param session            Current user session
+     * @param holderNameIfAdmin  Account holder name provided by admin users
+     * @param accountId          Account identifier
+     * @param amount             Amount to withdraw
+     */
     public void withdrawal(Session session, String holderNameIfAdmin, String accountId, double amount) {
         if (amount < 0) throw new IllegalArgumentException("Amount must be non-negative.");
 
@@ -56,6 +88,14 @@ public class BankService {
 
     }
 
+    /**
+     * Processes a transfer transaction
+     * @param session            Current user session
+     * @param holderNameIfAdmin  Account holder name provided by admin users
+     * @param fromAccountId      Source account identifier
+     * @param toAccountId        Destination account identifier
+     * @param amount             Amount to transfer
+     */
     public void transfer(Session session, String holderNameIfAdmin, String fromId, String toId, double amount) {
         if (amount < 0) throw new IllegalArgumentException("Amount must be non-negative.");
 
@@ -88,6 +128,14 @@ public class BankService {
         logger.add(new TransactionRecord("02", nameForLog, from5, amount, ""));
     }
 
+    /**
+     * Processes a bill payment transaction
+     * @param session            Current user session
+     * @param holderNameIfAdmin  Account holder name provided by admin users
+     * @param accountId          Account identifier
+     * @param companyCode        Billing company code (EC, CQ, FI)
+     * @param amount             Amount to pay
+     */
     public void paybill(Session session, String holderNameIfAdmin, String accountId, String companyCode, double amount) {
         if (amount < 0) throw new IllegalArgumentException("Amount must be non-negative.");
 
@@ -117,6 +165,14 @@ public class BankService {
         logger.add(new TransactionRecord("03", nameForLog, acct5, amount, cc));
     }
 
+    /**
+     * Records a deposit transaction
+     * Deposits are not applied to account balances until logout
+     * @param session            Current user session
+     * @param holderNameIfAdmin  Account holder name provided by admin users
+     * @param accountId          Account identifier
+     * @param amount             Amount to deposit
+     */
     public void deposit(Session session, String holderNameIfAdmin, String accountId, double amount) {
         if (amount < 0) throw new IllegalArgumentException("Amount must be non-negative.");
 
@@ -137,6 +193,12 @@ public class BankService {
     }
 
     // Privileged: create (05)
+    /**
+     * Creates a new account (admin only)
+     * @param session        Current user session
+     * @param holderName     Account holder name
+     * @param initialBalance Initial account balance
+     */
     public void create(Session session, String holderName, double initialBalance) {
         if (!session.isAdmin()) throw new IllegalArgumentException("Admin only.");
         if (holderName == null) holderName = "";
@@ -152,6 +214,12 @@ public class BankService {
     }
 
     // Privileged: delete (06)
+    /**
+     * Deletes an existing account (admin only)
+     * @param session    Current user session
+     * @param holderName Account holder name
+     * @param accountId  Account identifier
+     */
     public void delete(Session session, String holderName, String accountId) {
         if (!session.isAdmin()) throw new IllegalArgumentException("Admin only.");
         String acct5 = FixedFmt.acct5(accountId);
@@ -164,6 +232,12 @@ public class BankService {
     }
 
     // Privileged: disable (07)
+    /**
+     * Disables an account (admin only)
+     * @param session    Current user session
+     * @param holderName Account holder name
+     * @param accountId  Account identifier
+     */
     public void disable(Session session, String holderName, String accountId) {
         if (!session.isAdmin()) throw new IllegalArgumentException("Admin only.");
         String acct5 = FixedFmt.acct5(accountId);
@@ -176,6 +250,12 @@ public class BankService {
     }
 
     // Privileged: changeplan (08) -> set SP to NP
+    /**
+     * Changes an account's plan from SP to NP (admin only)
+     * @param session    Current user session
+     * @param holderName Account holder name
+     * @param accountId  Account identifier
+     */
     public void changeplan(Session session, String holderName, String accountId) {
         if (!session.isAdmin()) throw new IllegalArgumentException("Admin only.");
         String acct5 = FixedFmt.acct5(accountId);
@@ -197,6 +277,8 @@ public class BankService {
         pendingDeposits.clear();
     }
 
+    // Writes all recorded transactions to the transaction file 
+    // and clears the in-memory log.
     public void writeTransactionsAtLogout() {
         logger.writeAndClear();
     }
