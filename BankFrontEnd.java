@@ -1,15 +1,29 @@
+/**
+ * BankFrontEnd.java
+ - Provides a command-line user interface for interacting with the banking system.
+ - This class displays menus, reads user input, enforces session rules
+   (login/logout, admin vs standard), and passes all business logic
+   to the BankService.
+ - Input is read from keyboard input, and output is written onto the console.
+ */
 import java.util.Scanner;
 
 public class BankFrontEnd {
-    private final BankService service;
-    private final Session session;
-    private final Scanner input = new Scanner(System.in);
+    private final BankService service; // service layer that performs all the banking operations
+    private final Session session; // tracks the current session
+    private final Scanner input = new Scanner(System.in); // scanner to read user input
 
+    /**
+     * Constructs the front-end interface
+     * @param service Banking service handling transaction logic
+     * @param session Session object tracking login state and permissions
+     */
     public BankFrontEnd(BankService service, Session session) {
         this.service = service;
         this.session = session;
     }
 
+    /* Displays the menu to the user*/
     private void showMenu() {
         System.out.println();
         System.out.println("Select a transaction:");
@@ -25,6 +39,11 @@ public class BankFrontEnd {
         System.out.println("0 - logout");
     }
     
+    /**
+     * Maps a numeric menu choice to an internal transaction code
+     * @param choice User-selected menu option
+     * @return Corresponding transaction code, or null if invalid
+     */
     private String mapChoiceToCode(String choice) {
         switch (choice) {
             case "1": return "login";
@@ -41,6 +60,11 @@ public class BankFrontEnd {
         }
     }
     
+    /**
+     * Main execution loop for the front-end
+     * Continuously displays the menu, processes user input,
+       enforces login rules, and dispatches transaction flows
+     */
     public void run() {
         System.out.println("Bank Front End");
     
@@ -89,7 +113,7 @@ public class BankFrontEnd {
         }
     }
     
-
+    /*Handles the login process for standard and admin users*/
     private void loginFlow() {
         if (session.isLoggedIn()) {
             System.out.println("Already logged in. Logout first.");
@@ -116,6 +140,8 @@ public class BankFrontEnd {
         System.out.println("Invalid session type.");
     }
 
+    /* Handles user logout: applies pending deposits, writes the 
+       transaction file and ends the current session. */
     private void logoutFlow() {
         if (!session.isLoggedIn()) {
             System.out.println("Not logged in.");
@@ -132,6 +158,7 @@ public class BankFrontEnd {
         System.out.println("Logged out. Transactions written.");
     }
 
+    /*Handles withdrawal transactions*/
     private void withdrawalFlow() {
         try {
             String nameForAdmin = "";
@@ -153,6 +180,7 @@ public class BankFrontEnd {
         }
     }
 
+    /*Handles transfer transactions*/
     private void transferFlow() {
         try {
             String nameForAdmin = "";
@@ -177,6 +205,7 @@ public class BankFrontEnd {
         }
     }
 
+    /*Handles bill payement transactions*/
     private void paybillFlow() {
         try {
             String nameForAdmin = "";
@@ -201,6 +230,7 @@ public class BankFrontEnd {
         }
     }
 
+    /*Handles deposit transactions*/
     private void depositFlow() {
         try {
             String nameForAdmin = "";
@@ -222,6 +252,7 @@ public class BankFrontEnd {
         }
     }
 
+    /*Handles account creation (admit only)*/
     private void createFlow() {
         if (!session.isAdmin()) { System.out.println("Admin only."); return; }
 
@@ -238,6 +269,7 @@ public class BankFrontEnd {
         }
     }
 
+    /*Handles account deletion (admit only)*/
     private void deleteFlow() {
         if (!session.isAdmin()) { System.out.println("Admin only."); return; }
 
@@ -254,6 +286,7 @@ public class BankFrontEnd {
         }
     }
 
+    /*Handles account disabling (admit only)*/
     private void disableFlow() {
         if (!session.isAdmin()) { System.out.println("Admin only."); return; }
 
@@ -270,6 +303,7 @@ public class BankFrontEnd {
         }
     }
 
+    /*Handles account plan changes (admit only)*/
     private void changeplanFlow() {
         if (!session.isAdmin()) { System.out.println("Admin only."); return; }
 
@@ -286,11 +320,20 @@ public class BankFrontEnd {
         }
     }
 
+     /**
+     * Safely reads a trimmed line of input from the user
+     * @return trimmed input string (never null)
+     */
     private String safeLine() {
         String s = input.nextLine();
         return s == null ? "" : s.trim();
     }
 
+    /**
+     * Prompts the user for a numeric value and parses it as a Double
+     * @param prompt Prompt message displayed to the user
+     * @return Parsed Double value, or null if input is invalid
+     */
     private Double readDouble(String prompt) {
         System.out.print(prompt);
         String s = safeLine();
