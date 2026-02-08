@@ -1,7 +1,14 @@
 import java.io.*;
 import java.util.*;
 
-
+/**
+ * FileAccountsRepository.java
+ - Implements account persistence using a fixed-width text file format.
+ - File-based implementation of the AccountsRepository interface.
+ - This class loads account records from a fixed-format accounts file
+   into memory and writes all account data back to the file on save.
+ - Accounts are stored internally in a map keyed by their 5-digit account ID.
+ */
 
 public class FileAccountsRepository implements AccountsRepository {
     private final String accountsFilePath;
@@ -11,6 +18,7 @@ public class FileAccountsRepository implements AccountsRepository {
         this.accountsFilePath = filename;
     }
 
+    // loads account data from persistent storage
     @Override
     public void load() {
         accounts.clear();
@@ -42,6 +50,7 @@ public class FileAccountsRepository implements AccountsRepository {
         }
     }
 
+    // writes account data to persistent storage
     @Override
     public void save() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(accountsFilePath))) {
@@ -75,11 +84,13 @@ public class FileAccountsRepository implements AccountsRepository {
         }
     }
 
+    // determines whether an account exists
     @Override
     public boolean exists(String accountId) {
         return accounts.containsKey(FixedFmt.acct5(accountId));
     }
 
+    // retrieves an account by identifier
     @Override
     public Account get(String accountId) {
         String id = FixedFmt.acct5(accountId);
@@ -88,17 +99,20 @@ public class FileAccountsRepository implements AccountsRepository {
         return a;
     }
 
+    // adds a new account to storage
     @Override
     public void add(Account account) {
         String id = FixedFmt.acct5(account.getId());
         accounts.put(id, account);
     }
 
+    // removes an account from storage
     @Override
     public void remove(String accountId) {
         accounts.remove(FixedFmt.acct5(accountId));
     }
 
+    // generates the next available account identifier
     @Override
     public String nextAccountId() {
         int max = 0;
@@ -111,6 +125,7 @@ public class FileAccountsRepository implements AccountsRepository {
         return String.format("%05d", max + 1);
     }
 
+    // parses a money-formatted string into a double value, returning 0.0 if the input is invalid.
     private static double parseMoney(String s) {
         // money field is like 00110.00 (8 chars)
         try {
@@ -119,7 +134,4 @@ public class FileAccountsRepository implements AccountsRepository {
             return 0.0;
         }
     }
-
-  
-
 }
