@@ -43,12 +43,6 @@ You can run the banking system using your IDE or from the command line.
    java Main accounts.txt rentals.txt transactions.txt
    ```
 
-## Limitations
-- This version is a rapid prototype and has not yet been fully validated against all test cases.
-- The Back End batch processor is not yet implemented.
-- Error handling may be improved in later iterations.
-- Some edge cases may require refinement.
-
 ## Future Work
 - Full integration with the Back End batch processor.
 - Continuous refactoring and simplification.
