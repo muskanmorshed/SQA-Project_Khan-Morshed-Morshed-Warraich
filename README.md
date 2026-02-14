@@ -45,7 +45,7 @@ You can run the banking system using your IDE or from the command line.
 
 ## Future Work
 - Full integration with the Back End batch processor.
-- Continuous refactoring and simplification.
+- Ongoing code improvements for clarity and simplicity.
 - Full validation against all constraints.
 
 ## Authors 
