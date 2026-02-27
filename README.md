@@ -42,6 +42,16 @@ You can run the banking system using your IDE or from the command line.
    ```bash
    java Main accounts.txt rentals.txt transactions.txt
    ```
+**Run tests**
+1. Open Git Bash
+2. Run the Script
+   ```bash
+   ./run_tests.sh
+   ```
+If it does not work, then give permission to run the file
+   ```bash
+   chmod +x run_tests.sh
+   ```
 
 ## Future Work
 - Full integration with the Back End batch processor.

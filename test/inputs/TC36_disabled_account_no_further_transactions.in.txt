@@ -1,0 +1,14 @@
+1
+
+admin 
+
+8 
+
+newuser
+9000
+
+2 
+
+newuser
+9000
+100

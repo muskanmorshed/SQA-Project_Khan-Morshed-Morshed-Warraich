@@ -1,0 +1,51 @@
+Select a transaction
+1 - login 
+2 - withdrawal
+3 - transfer 
+4 - paybill 
+5 - deposit 
+6 - create (admin)
+7 - delete (admin)
+8 - disable (admin)
+9 - changeplan (admin)
+0 - logout 
+Choice: 1
+
+----LOGIN----
+
+Session type (standard/admin): standard
+Account holder name: shimza
+Standard login accepted. 
+
+
+Select a transaction
+1 - login 
+2 - withdrawal
+3 - transfer 
+4 - paybill 
+5 - deposit 
+6 - create (admin)
+7 - delete (admin)
+8 - disable (admin)
+9 - changeplan (admin)
+0 - logout 
+Choice: 5
+
+----DEPOSIT----
+
+Account number: 1256
+Amount to deposit: 0
+Amount must be non-negative and greater than 0.
+
+Select a transaction
+1 - login 
+2 - withdrawal
+3 - transfer 
+4 - paybill 
+5 - deposit 
+6 - create (admin)
+7 - delete (admin)
+8 - disable (admin)
+9 - changeplan (admin)
+0 - logout 
+Choice: 

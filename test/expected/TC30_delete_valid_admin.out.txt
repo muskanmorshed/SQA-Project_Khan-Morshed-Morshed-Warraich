@@ -1,0 +1,48 @@
+Select a transaction
+1 - login 
+2 - withdrawal
+3 - transfer 
+4 - paybill 
+5 - deposit 
+6 - create (admin)
+7 - delete (admin)
+8 - disable (admin)
+9 - changeplan (admin)
+0 - logout 
+Choice: 1
+
+----LOGIN----
+
+Session type (standard/admin): admin
+Admin login accepted.
+
+Select a transaction
+1 - login 
+2 - withdrawal
+3 - transfer 
+4 - paybill 
+5 - deposit 
+6 - create (admin)
+7 - delete (admin)
+8 - disable (admin)
+9 - changeplan (admin)
+0 - logout 
+Choice: 7
+
+----DELETE (ADMIN)---- 
+Account holder name: newuser
+Account number: 5555
+Delete recorded.
+
+Select a transaction
+1 - login 
+2 - withdrawal
+3 - transfer 
+4 - paybill 
+5 - deposit 
+6 - create (admin)
+7 - delete (admin)
+8 - disable (admin)
+9 - changeplan (admin)
+0 - logout 
+Choice:
