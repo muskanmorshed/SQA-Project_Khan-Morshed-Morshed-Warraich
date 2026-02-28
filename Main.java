@@ -39,7 +39,7 @@ public class Main {
         frontEnd.run();
 
         // Persist account data before exiting
-        repo.save();
+       // repo.save();
         
         // rentalUnitsFile intentionally not used (included to satisfy interface requirement)
     }

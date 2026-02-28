@@ -25,18 +25,18 @@ public class BankFrontEnd {
 
     /* Displays the menu to the user*/
     private void showMenu() {
-        System.out.println();
-        System.out.println("Select a transaction:");
-        System.out.println("1 - login");
+
+        System.out.println("Select a transaction");
+        System.out.println("1 - login ");
         System.out.println("2 - withdrawal");
-        System.out.println("3 - transfer");
-        System.out.println("4 - paybill");
-        System.out.println("5 - deposit");
+        System.out.println("3 - transfer ");
+        System.out.println("4 - paybill ");
+        System.out.println("5 - deposit ");
         System.out.println("6 - create (admin)");
         System.out.println("7 - delete (admin)");
         System.out.println("8 - disable (admin)");
         System.out.println("9 - changeplan (admin)");
-        System.out.println("0 - logout");
+        System.out.println("0 - logout ");
     }
     
     /**
@@ -66,32 +66,68 @@ public class BankFrontEnd {
        enforces login rules, and dispatches transaction flows
      */
     public void run() {
-        System.out.println("Bank Front End");
+        //System.out.println("Bank Front End");
     
         while (true) {
-            showMenu();                 // one option per line
-            System.out.print("Choice: ");
-            String choice = safeLine();
-    
-            String code = mapChoiceToCode(choice);
-            if (code == null) {
-                System.out.println("Invalid choice.");
-                continue;
+            showMenu();
+
+            if (!input.hasNextLine()) {
+                System.out.println("Choice:");
+                 
+                return;
             }
+
+            String choice;
+while (true) {
+    choice = safeLine(); // reads next non-empty line, or null at EOF
+    if (choice == null) {
+        System.out.println("Choice:");
+        return;
+    }
+
+    // Skip section headers like ----STANDARD---- silently
+    if (choice.matches("^----.*----$")) {
+        continue;
+    }
+
+    // For real inputs, always echo as "Choice: X"
+    System.out.println("Choice: " + choice);
+    break;
+}
+
+// Now validate the choice
+boolean isNumeric = choice.matches("\\d+");
+String code = isNumeric ? mapChoiceToCode(choice) : null;
+
+if (code == null) {
+    System.out.println();
+    if (!isNumeric) {
+        System.out.println("invalid choice. ");
+    } else {
+        System.out.println("Invalid choice.");
+    }
+    System.out.println();
+    continue;
+}
     
             // Enforce: must login first
             if (!session.isLoggedIn()) {
                 if ("login".equals(code)) {
+                    // If there's no more scripted input after choosing login, end cleanly
+                    if (!input.hasNextLine()) return;
                     loginFlow();
                 } else {
-                    System.out.println("Please login first.");
-                }
+                    System.out.println();
+                    System.out.println("Please login first. ");
+                    System.out.println();                }
                 continue;
             }
     
             // Enforce: no second login until logout
             if ("login".equals(code)) {
+                System.out.println();
                 System.out.println("Already logged in. Logout first.");
+                System.out.println();
                 continue;
             }
     
@@ -119,10 +155,14 @@ public class BankFrontEnd {
             System.out.println("Already logged in. Logout first.");
             return;
         }
-
+        System.out.println();
+        System.out.println("----LOGIN----");        System.out.println();
+        if (!input.hasNextLine()) return; 
         System.out.print("Session type (standard/admin): ");
-        String kind = safeLine().toLowerCase();
-
+        String kindRaw = safeLine();
+        if (kindRaw == null) return;      // EOF -> stop login flow
+        System.out.println(kindRaw);          // echo input
+        String kind = kindRaw.toLowerCase();
         if ("admin".equals(kind)) {
             session.loginAdmin();
             System.out.println("Admin login accepted.");
@@ -131,10 +171,13 @@ public class BankFrontEnd {
 
         if ("standard".equals(kind)) {
             System.out.print("Account holder name: ");
-            String name = safeLine();
-            session.loginStandard(name);
-            System.out.println("Standard login accepted.");
-            return;
+        String name = safeLine();
+if (name == null) return;
+        System.out.println(name);             // echo input
+        session.loginStandard(name);
+        System.out.println("Standard login accepted.");
+        System.out.println();
+        return;
         }
 
         System.out.println("Invalid session type.");
@@ -170,13 +213,23 @@ public class BankFrontEnd {
             System.out.print("Account number: ");
             String acct = safeLine();
 
-            Double amt = readDouble("Amount to withdraw: ");
-            if (amt == null) { System.out.println("Bad amount."); return; }
+            System.out.print("Amount to deposit: ");
+String amtStr = safeLine();
+if (amtStr == null) return;
+System.out.println(amtStr); // echo
+
+double amt;
+try {
+    amt = Double.parseDouble(amtStr);
+} catch (NumberFormatException ex) {
+    System.out.println("Bad amount.");
+    return;
+}
 
             service.withdrawal(session, nameForAdmin, acct, amt);
             System.out.println("Withdrawal recorded.");
         } catch (IllegalArgumentException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -201,7 +254,7 @@ public class BankFrontEnd {
             service.transfer(session, nameForAdmin, from, to, amt);
             System.out.println("Transfer recorded.");
         } catch (IllegalArgumentException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -226,46 +279,79 @@ public class BankFrontEnd {
             service.paybill(session, nameForAdmin, acct, company, amt);
             System.out.println("Paybill recorded.");
         } catch (IllegalArgumentException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
 
     /*Handles deposit transactions*/
     private void depositFlow() {
         try {
+            System.out.println();
+            System.out.println("----DEPOSIT----");            System.out.println();
+    
             String nameForAdmin = "";
             if (session.isAdmin()) {
                 System.out.print("Account holder name: ");
                 nameForAdmin = safeLine();
+                if (nameForAdmin == null) return;
+                System.out.println(nameForAdmin); // echo (admin only)
             }
-
+    
             System.out.print("Account number: ");
             String acct = safeLine();
-
-            Double amt = readDouble("Amount to deposit: ");
-            if (amt == null) { System.out.println("Bad amount."); return; }
-
+            if (acct == null) return;
+            System.out.println(acct); // echo
+    
+            System.out.print("Amount to deposit: ");
+            String amtStr = safeLine();
+            if (amtStr == null) return;
+            System.out.println(amtStr); // echo
+    
+            double amt;
+            try {
+                amt = Double.parseDouble(amtStr);
+            } catch (NumberFormatException ex) {
+                System.out.println("Bad amount.");
+                return;
+            }
+    
             service.deposit(session, nameForAdmin, acct, amt);
             System.out.println("Deposit recorded (not available until logout).");
+            System.out.println();
+    
         } catch (IllegalArgumentException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println(ex.getMessage());
+            System.out.println();
         }
     }
 
     /*Handles account creation (admit only)*/
     private void createFlow() {
-        if (!session.isAdmin()) { System.out.println("Admin only."); return; }
-
+        if (!session.isAdmin()) {
+            System.out.println();
+            System.out.println("Admin only. ");
+            System.out.println();
+            return;
+        }
         try {
             System.out.print("Account holder name: ");
             String name = safeLine();
-            Double amt = readDouble("Initial balance: ");
-            if (amt == null) { System.out.println("Bad amount."); return; }
+            String amtStr = safeLine();
+if (amtStr == null) return;
+System.out.println("Amount to deposit: " + amtStr);
+
+        Double amt;
+        try {
+            amt = Double.parseDouble(amtStr);
+        } catch (NumberFormatException ex) {
+            System.out.println("Bad amount.");
+            return;
+        }
 
             service.create(session, name, amt);
             System.out.println("Create recorded.");
         } catch (IllegalArgumentException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -282,7 +368,7 @@ public class BankFrontEnd {
             service.delete(session, name, acct);
             System.out.println("Delete recorded.");
         } catch (IllegalArgumentException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -299,7 +385,7 @@ public class BankFrontEnd {
             service.disable(session, name, acct);
             System.out.println("Disable recorded.");
         } catch (IllegalArgumentException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -316,7 +402,7 @@ public class BankFrontEnd {
             service.changeplan(session, name, acct);
             System.out.println("Changeplan recorded.");
         } catch (IllegalArgumentException ex) {
-            System.out.println("Error: " + ex.getMessage());
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -324,10 +410,19 @@ public class BankFrontEnd {
      * Safely reads a trimmed line of input from the user
      * @return trimmed input string (never null)
      */
-    private String safeLine() {
+    /*private String safeLine() {
         String s = input.nextLine();
         return s == null ? "" : s.trim();
-    }
+    }*/
+        private String safeLine() {
+            while (input.hasNextLine()) {
+                String s = input.nextLine();
+                if (s == null) continue;
+                s = s.trim();
+                if (!s.isEmpty()) return s;   // skip blank lines
+            }
+            return null; // EOF
+        }
 
     /**
      * Prompts the user for a numeric value and parses it as a Double
@@ -337,6 +432,7 @@ public class BankFrontEnd {
     private Double readDouble(String prompt) {
         System.out.print(prompt);
         String s = safeLine();
+        if (s == null) return null; // EOF
         try {
             return Double.parseDouble(s);
         } catch (NumberFormatException ex) {

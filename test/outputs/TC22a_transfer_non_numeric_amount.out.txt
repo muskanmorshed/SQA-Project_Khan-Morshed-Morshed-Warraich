@@ -1,0 +1,44 @@
+Select a transaction
+1 - login 
+2 - withdrawal
+3 - transfer 
+4 - paybill 
+5 - deposit 
+6 - create (admin)
+7 - delete (admin)
+8 - disable (admin)
+9 - changeplan (admin)
+0 - logout 
+Choice: 1
+
+----LOGIN----
+
+Session type (standard/admin): standard
+Account holder name: shimza
+Standard login accepted. 
+
+Select a transaction
+1 - login 
+2 - withdrawal
+3 - transfer 
+4 - paybill 
+5 - deposit 
+6 - create (admin)
+7 - delete (admin)
+8 - disable (admin)
+9 - changeplan (admin)
+0 - logout 
+Choice: 3
+From account number: To account number: Amount to transfer: Bad amount.
+Select a transaction
+1 - login 
+2 - withdrawal
+3 - transfer 
+4 - paybill 
+5 - deposit 
+6 - create (admin)
+7 - delete (admin)
+8 - disable (admin)
+9 - changeplan (admin)
+0 - logout 
+Choice:

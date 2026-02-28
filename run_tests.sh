@@ -17,20 +17,20 @@ mkdir -p "$OUTPUT_DIR"
 javac *.java
 
 # Loop through every file inside test/inputs
-for inputfile in "$INPUT_DIR"/*
+for inputfile in "$INPUT_DIR"/*.in.txt
 do
     # Extract filename only (remove path)
     filename=$(basename "$inputfile")
 
     # Remove file extension
-    name="${filename%.*}"
+    name="${filename%.in.txt}"
 
     echo "Running test: $filename"
 
     # Run your program
     java Main "$ACCOUNTS_FILE" "$RENTAL_FILE" "$OUTPUT_DIR/$name.atf" \
         < "$inputfile" \
-        > "$OUTPUT_DIR/$name.out"
+        > "$OUTPUT_DIR/$name.out.txt"
 
 done
 

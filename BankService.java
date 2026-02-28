@@ -63,9 +63,7 @@ public class BankService {
      * @param amount             Amount to withdraw
      */
     public void withdrawal(Session session, String holderNameIfAdmin, String accountId, double amount) {
-        if (amount < 0) throw new IllegalArgumentException("Amount must be non-negative.");
-
-        String acct5 = FixedFmt.acct5(accountId);
+        if (amount <= 0) throw new IllegalArgumentException("Amount must be non-negative and greater than 0.");        String acct5 = FixedFmt.acct5(accountId);
 
         if (session.isAdmin()) {
             validateExistingActive(acct5);
@@ -174,8 +172,7 @@ public class BankService {
      * @param amount             Amount to deposit
      */
     public void deposit(Session session, String holderNameIfAdmin, String accountId, double amount) {
-        if (amount < 0) throw new IllegalArgumentException("Amount must be non-negative.");
-
+        if (amount <= 0) throw new IllegalArgumentException("Amount must be non-negative and greater than 0.");
         String acct5 = FixedFmt.acct5(accountId);
 
         if (session.isAdmin()) {
