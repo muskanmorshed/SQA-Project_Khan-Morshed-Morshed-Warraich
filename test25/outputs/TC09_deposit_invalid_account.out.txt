@@ -11,7 +11,7 @@ Select a transaction
 0 - logout 
 Choice: 1
 
-----LOGIN----
+----LOGIN---- 
 
 Session type (standard/admin): standard
 Account holder name: shimza
@@ -33,8 +33,8 @@ Choice: 5
 ----DEPOSIT----
 
 Account number: 1256
-Amount to deposit: -10
-Amount must be non-negative and greater than 0.
+Amount to deposit: 500
+Deposit recorded (not available until logout).
 
 Select a transaction
 1 - login 

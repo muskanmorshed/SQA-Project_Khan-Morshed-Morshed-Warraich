@@ -15,7 +15,7 @@ Choice: 1
 
 Session type (standard/admin): standard
 Account holder name: shimza
-Standard login accepted.
+Standard login accepted. 
 
 Select a transaction
 1 - login 
@@ -28,13 +28,14 @@ Select a transaction
 8 - disable (admin)
 9 - changeplan (admin)
 0 - logout 
-Choice: 5
+Choice: 3
 
-----DEPOSIT----
+----TRANSFER---- 
 
-Account number: 1256
-Amount to deposit: -10
-Amount must be non-negative and greater than 0.
+From account number: 1900
+To account number: 1290
+Amount to transfer: 1200
+Error: Amount cannot be over 1000.
 
 Select a transaction
 1 - login 
@@ -47,4 +48,4 @@ Select a transaction
 8 - disable (admin)
 9 - changeplan (admin)
 0 - logout 
-Choice:
+Choice: 

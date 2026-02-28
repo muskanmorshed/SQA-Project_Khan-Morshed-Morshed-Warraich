@@ -28,13 +28,14 @@ Select a transaction
 8 - disable (admin)
 9 - changeplan (admin)
 0 - logout 
-Choice: 5
+Choice: 4
 
-----DEPOSIT----
+----PAYBILL----
 
-Account number: 1256
-Amount to deposit: -10
-Amount must be non-negative and greater than 0.
+Account number: 1290
+Company (EC/CQ/FI): EC
+Amount to pay: 2500
+Error: Paybill amount not be over 2000. 
 
 Select a transaction
 1 - login 

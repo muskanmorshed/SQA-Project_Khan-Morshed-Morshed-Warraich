@@ -15,7 +15,7 @@ Choice: 1
 
 Session type (standard/admin): standard
 Account holder name: shimza
-Standard login accepted.
+Standard login accepted. 
 
 Select a transaction
 1 - login 
@@ -28,13 +28,9 @@ Select a transaction
 8 - disable (admin)
 9 - changeplan (admin)
 0 - logout 
-Choice: 5
+Choice: 1
 
-----DEPOSIT----
-
-Account number: 1256
-Amount to deposit: -10
-Amount must be non-negative and greater than 0.
+Already logged in. Logout first.
 
 Select a transaction
 1 - login 

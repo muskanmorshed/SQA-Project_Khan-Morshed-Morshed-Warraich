@@ -28,13 +28,14 @@ Select a transaction
 8 - disable (admin)
 9 - changeplan (admin)
 0 - logout 
-Choice: 5
+Choice: 3
 
-----DEPOSIT----
+----TRANSFER----
 
-Account number: 1256
-Amount to deposit: -10
-Amount must be non-negative and greater than 0.
+From account number: 1290
+To account number: 9999
+Amount to transfer: 200
+Error: Account does not exist.
 
 Select a transaction
 1 - login 

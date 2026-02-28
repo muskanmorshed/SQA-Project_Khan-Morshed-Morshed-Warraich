@@ -156,7 +156,7 @@ if (code == null) {
             return;
         }
         System.out.println();
-        System.out.println("----LOGIN----");        System.out.println();
+        System.out.println("----LOGIN---- ");        System.out.println();
         if (!input.hasNextLine()) return; 
         System.out.print("Session type (standard/admin): ");
         String kindRaw = safeLine();
@@ -222,7 +222,8 @@ double amt;
 try {
     amt = Double.parseDouble(amtStr);
 } catch (NumberFormatException ex) {
-    System.out.println("Bad amount.");
+    System.out.println("Amount must be a number.");
+    System.out.println();
     return;
 }
 
@@ -311,7 +312,8 @@ try {
             try {
                 amt = Double.parseDouble(amtStr);
             } catch (NumberFormatException ex) {
-                System.out.println("Bad amount.");
+                System.out.println("Amount must be a number.");
+                System.out.println();
                 return;
             }
     

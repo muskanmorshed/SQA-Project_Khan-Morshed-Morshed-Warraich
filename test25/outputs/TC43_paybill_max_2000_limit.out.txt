@@ -11,7 +11,7 @@ Select a transaction
 0 - logout 
 Choice: 1
 
-----LOGIN----
+----LOGIN---- 
 
 Session type (standard/admin): standard
 Account holder name: shimza
@@ -28,14 +28,8 @@ Select a transaction
 8 - disable (admin)
 9 - changeplan (admin)
 0 - logout 
-Choice: 5
-
-----DEPOSIT----
-
-Account number: 1256
-Amount to deposit: -10
-Amount must be non-negative and greater than 0.
-
+Choice: 4
+Account number: Company (EC/CQ/FI): Amount to pay: Standard session paybill limit is $2000.00.
 Select a transaction
 1 - login 
 2 - withdrawal
