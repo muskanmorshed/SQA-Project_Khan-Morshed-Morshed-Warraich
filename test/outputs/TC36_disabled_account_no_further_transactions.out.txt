@@ -27,7 +27,7 @@ Select a transaction
 9 - changeplan (admin)
 0 - logout 
 Choice: 8
-Account holder name: Account number: Error: Account does not exist.
+Account holder name: Account number: Account does not exist.
 Select a transaction
 1 - login 
 2 - withdrawal
@@ -40,8 +40,14 @@ Select a transaction
 9 - changeplan (admin)
 0 - logout 
 Choice: 2
-Account holder name: Account number: Amount to deposit: 100
-Error: Account does not exist.
+
+----WITHDRAWAL----
+
+Account holder name: newuser
+Account number: 9000
+Amount to withdraw: 100
+Account does not exist.
+
 Select a transaction
 1 - login 
 2 - withdrawal

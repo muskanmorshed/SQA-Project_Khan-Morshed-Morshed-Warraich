@@ -28,7 +28,22 @@ Select a transaction
 0 - logout 
 Choice: 6
 Account holder name: Amount to deposit: 1290
-Error: Name max 20 characters.
+Name max 20 characters.
+Select a transaction
+1 - login 
+2 - withdrawal
+3 - transfer 
+4 - paybill 
+5 - deposit 
+6 - create (admin)
+7 - delete (admin)
+8 - disable (admin)
+9 - changeplan (admin)
+0 - logout 
+Choice: 500.00
+
+invalid choice. 
+
 Select a transaction
 1 - login 
 2 - withdrawal

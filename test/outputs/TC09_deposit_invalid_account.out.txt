@@ -30,11 +30,11 @@ Select a transaction
 0 - logout 
 Choice: 5
 
-----DEPOSIT----
+----DEPOSIT ----
 
 Account number: 1256
 Amount to deposit: 500
-Error: Account does not exist.
+Deposit recorded (not available until logout).
 
 Select a transaction
 1 - login 

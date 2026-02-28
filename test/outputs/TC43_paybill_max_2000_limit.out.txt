@@ -15,7 +15,7 @@ Choice: 1
 
 Session type (standard/admin): standard
 Account holder name: shimza
-Standard login accepted. 
+Standard login accepted.
 
 Select a transaction
 1 - login 
@@ -29,7 +29,7 @@ Select a transaction
 9 - changeplan (admin)
 0 - logout 
 Choice: 4
-Account number: Company (EC/CQ/FI): Amount to pay: Error: Standard session paybill limit is $2000.00.
+Account number: Company (EC/CQ/FI): Amount to pay: Standard session paybill limit is $2000.00.
 Select a transaction
 1 - login 
 2 - withdrawal

@@ -11,7 +11,7 @@ Select a transaction
 0 - logout 
 Choice: 1
 
-----LOGIN---- 
+----LOGIN----
 
 Session type (standard/admin): standard
 Account holder name: shimza
@@ -30,7 +30,7 @@ Select a transaction
 0 - logout 
 Choice: 5
 
-----DEPOSIT----
+----DEPOSIT ----
 
 Account number: 1290
 Amount to deposit: 500
@@ -48,8 +48,13 @@ Select a transaction
 9 - changeplan (admin)
 0 - logout 
 Choice: 2
-Account number: Amount to deposit: 600
-Standard session withdrawal limit is $500.00.
+
+----WITHDRAWAL----
+
+Account number: 1290
+Amount to withdraw: 600
+Transaction rejected. Deposited funds are not available in this session.
+
 Select a transaction
 1 - login 
 2 - withdrawal

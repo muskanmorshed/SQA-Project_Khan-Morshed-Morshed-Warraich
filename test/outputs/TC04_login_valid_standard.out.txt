@@ -15,7 +15,7 @@ Choice: 1
 
 Session type (standard/admin): standard
 Account holder name: shimza
-Standard login accepted. 
+Standard login accepted.
 
 Select a transaction
 1 - login 

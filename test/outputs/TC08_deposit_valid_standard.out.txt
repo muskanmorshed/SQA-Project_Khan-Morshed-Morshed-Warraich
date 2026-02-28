@@ -15,7 +15,7 @@ Choice: 1
 
 Session type (standard/admin): standard
 Account holder name: shimza
-Standard login accepted. 
+Standard login accepted.
 
 Select a transaction
 1 - login 
@@ -30,7 +30,7 @@ Select a transaction
 0 - logout 
 Choice: 5
 
-----DEPOSIT----
+----DEPOSIT ----
 
 Account number: 1290
 Amount to deposit: 500

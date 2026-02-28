@@ -27,7 +27,7 @@ Select a transaction
 9 - changeplan (admin)
 0 - logout 
 Choice: 3
-Account holder name: From account number: To account number: Amount to transfer: Error: Destination account does not exist.
+Account holder name: From account number: To account number: Amount to transfer: Destination account does not exist.
 Select a transaction
 1 - login 
 2 - withdrawal

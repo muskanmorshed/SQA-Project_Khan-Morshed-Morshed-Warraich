@@ -15,7 +15,7 @@ Choice: 1
 
 Session type (standard/admin): standard
 Account holder name: shimza
-Standard login accepted. 
+Standard login accepted.
 
 Select a transaction
 1 - login 
@@ -29,8 +29,13 @@ Select a transaction
 9 - changeplan (admin)
 0 - logout 
 Choice: 2
-Account number: Amount to deposit: 500
-Error: Account does not exist.
+
+----WITHDRAWAL----
+
+Account number: 1256
+Amount to withdraw: 500
+Insufficient funds.
+
 Select a transaction
 1 - login 
 2 - withdrawal

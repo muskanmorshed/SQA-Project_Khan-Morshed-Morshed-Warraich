@@ -27,8 +27,14 @@ Select a transaction
 9 - changeplan (admin)
 0 - logout 
 Choice: 2
-Account holder name: Account number: Amount to deposit: 200
-Error: Insufficient funds.
+
+----WITHDRAWAL----
+
+Account holder name: shimza
+Account number: 1290
+Amount to withdraw: 200
+Insufficient funds.
+
 Select a transaction
 1 - login 
 2 - withdrawal

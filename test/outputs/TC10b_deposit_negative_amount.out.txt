@@ -30,7 +30,7 @@ Select a transaction
 0 - logout 
 Choice: 5
 
-----DEPOSIT----
+----DEPOSIT ----
 
 Account number: 1256
 Amount to deposit: -10

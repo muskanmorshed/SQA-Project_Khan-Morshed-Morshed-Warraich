@@ -28,7 +28,7 @@ Select a transaction
 0 - logout 
 Choice: 5
 
------DEPOSIT----
+----DEPOSIT ----
 
 Account holder name: shimza
 Account number: 1290

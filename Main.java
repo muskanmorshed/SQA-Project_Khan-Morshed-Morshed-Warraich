@@ -37,6 +37,7 @@ public class Main {
         // Start the user-facing front-end
         BankFrontEnd frontEnd = new BankFrontEnd(service, session);
         frontEnd.run();
+        
 
         // Persist account data before exiting
        // repo.save();
