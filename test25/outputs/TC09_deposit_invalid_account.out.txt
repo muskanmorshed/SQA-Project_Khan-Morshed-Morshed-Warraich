@@ -11,7 +11,7 @@ Select a transaction
 0 - logout 
 Choice: 1
 
-----LOGIN---- 
+----LOGIN----
 
 Session type (standard/admin): standard
 Account holder name: shimza
@@ -34,7 +34,7 @@ Choice: 5
 
 Account number: 1256
 Amount to deposit: 500
-Deposit recorded (not available until logout).
+Error: Account does not exist.
 
 Select a transaction
 1 - login 

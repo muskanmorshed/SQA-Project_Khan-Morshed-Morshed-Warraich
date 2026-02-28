@@ -11,7 +11,7 @@ Select a transaction
 0 - logout 
 Choice: 1
 
-----LOGIN---- 
+----LOGIN----
 
 Session type (standard/admin): standard
 Account holder name: shimza
@@ -29,8 +29,13 @@ Select a transaction
 9 - changeplan (admin)
 0 - logout 
 Choice: 2
-Account number: Amount to deposit: 300
+
+----WITHDRAWAL----
+
+Account number: 1236
+Amount to withdraw: 300
 Account does not exist.
+
 Select a transaction
 1 - login 
 2 - withdrawal

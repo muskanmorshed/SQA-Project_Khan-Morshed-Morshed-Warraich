@@ -69,8 +69,8 @@ public class BankService {
             validateExistingActive(acct5);
         } else {
             validateStandardAccount(session.getHolderName(), acct5);
-            if (session.getTotalWithdraw() + amount > 500.0) {
-                throw new IllegalArgumentException("Standard session withdrawal limit is $500.00.");
+            if (pendingDeposits.containsKey(acct5) && pendingDeposits.get(acct5) > 0) {
+                throw new IllegalArgumentException("Transaction rejected. Deposited funds are not available in this session.");
             }
         }
 

@@ -11,7 +11,7 @@ Select a transaction
 0 - logout 
 Choice: 1
 
-----LOGIN---- 
+----LOGIN----
 
 Session type (standard/admin): standard
 Account holder name: shimza

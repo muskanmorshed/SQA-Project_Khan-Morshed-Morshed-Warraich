@@ -156,7 +156,7 @@ if (code == null) {
             return;
         }
         System.out.println();
-        System.out.println("----LOGIN---- ");        System.out.println();
+        System.out.println("----LOGIN----");        System.out.println();
         if (!input.hasNextLine()) return; 
         System.out.print("Session type (standard/admin): ");
         String kindRaw = safeLine();
@@ -204,33 +204,43 @@ if (name == null) return;
     /*Handles withdrawal transactions*/
     private void withdrawalFlow() {
         try {
+            System.out.println();
+            System.out.println("----WITHDRAWAL----");            System.out.println();
+    
             String nameForAdmin = "";
             if (session.isAdmin()) {
                 System.out.print("Account holder name: ");
                 nameForAdmin = safeLine();
+                if (nameForAdmin == null) return;
+                System.out.println(nameForAdmin);
             }
-
+    
             System.out.print("Account number: ");
             String acct = safeLine();
-
-            System.out.print("Amount to deposit: ");
-String amtStr = safeLine();
-if (amtStr == null) return;
-System.out.println(amtStr); // echo
-
-double amt;
-try {
-    amt = Double.parseDouble(amtStr);
-} catch (NumberFormatException ex) {
-    System.out.println("Amount must be a number.");
-    System.out.println();
-    return;
-}
-
+            if (acct == null) return;
+            System.out.println(acct);
+    
+            System.out.print("Amount to withdraw: ");
+            String amtStr = safeLine();
+            if (amtStr == null) return;
+            System.out.println(amtStr);
+    
+            double amt;
+            try {
+                amt = Double.parseDouble(amtStr);
+            } catch (NumberFormatException ex) {
+                System.out.println("Amount must be a number.");
+                System.out.println();
+                return;
+            }
+    
             service.withdrawal(session, nameForAdmin, acct, amt);
             System.out.println("Withdrawal recorded.");
+            System.out.println();
+    
         } catch (IllegalArgumentException ex) {
             System.out.println(ex.getMessage());
+            System.out.println();
         }
     }
 
@@ -288,8 +298,8 @@ try {
     private void depositFlow() {
         try {
             System.out.println();
-            System.out.println("----DEPOSIT----");            System.out.println();
-    
+            System.out.println("----DEPOSIT ----"); 
+            System.out.println();   
             String nameForAdmin = "";
             if (session.isAdmin()) {
                 System.out.print("Account holder name: ");
@@ -321,8 +331,13 @@ try {
             System.out.println("Deposit recorded (not available until logout).");
             System.out.println();
     
-        } catch (IllegalArgumentException ex) {
-            System.out.println(ex.getMessage());
+        }  catch (IllegalArgumentException ex) {
+            String msg = ex.getMessage();
+            if ("Account does not exist.".equals(msg)) {
+                System.out.println("Error: " + msg);
+            } else {
+                System.out.println(msg);
+            }
             System.out.println();
         }
     }
